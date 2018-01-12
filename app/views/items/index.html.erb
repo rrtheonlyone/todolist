@@ -3,4 +3,5 @@
 	<h2><%= item.title %></h2>
 	<p><%= item.description %></p>
 	<p><%= link_to "Edit", edit_item_path(item) %></p>
+	<p><%= link_to "Delete", item, method: :delete, data: { confirm: "Are you sure?"} %></p>
 <% end %>
