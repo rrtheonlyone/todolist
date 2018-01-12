@@ -1,0 +1,41 @@
+<div class="row">
+	<%= link_to root_path, class: "btn btn-success" do %>
+		<i class="glyphicon glyphicon-chevron-left"></i> Back
+	<% end %>
+	<u><h2>Task Details</h2></u>
+	<h4>Created at: <%= @item.created_at %></h4>
+	<h4>Last Updated at: <%= @item.updated_at %></h4>
+
+	<% if @item.completed? %>
+		<h3><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;Task has been completed at <%= @item.completed_at %>!</h3>
+	<% end %>
+</div>
+
+<hr/>
+<div class="row item-detail">
+	<div class="col-sm-6 col-sm-offset-3">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		   	 <h3><u><%= @item.title %></u></h3>
+		   	 <p><%= @item.description %></p><br><br><br>
+
+			 <% if @item.completed? %>
+				 <%= link_to @item, method: :delete, class: "btn btn-danger" do %>
+						<i class="glyphicon glyphicon-trash"></i> Delete Task
+			     <% end %>
+			 <% else %>
+
+			 	<%= link_to edit_item_path(@item), class: "btn btn-default" do %>
+		    	     <i class="glyphicon glyphicon-pencil"></i> Edit Task
+				<% end %>
+			 	<%= link_to complete_item_path(@item), method: :patch, class: "btn btn-primary" do %>
+			         <i class="glyphicon glyphicon-ok"></i> Mark as Complete
+				<% end %>
+			 <% end %>
+		  </div>
+		</div>
+	</div>
+</div>
+
+
+
