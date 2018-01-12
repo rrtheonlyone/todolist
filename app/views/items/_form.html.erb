@@ -1,0 +1,10 @@
+<%= form_for(@item) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title, class: 'form-control' %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, class: 'form-control' %>
+  <hr/>
+  <%= render 'error_messages' %>
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

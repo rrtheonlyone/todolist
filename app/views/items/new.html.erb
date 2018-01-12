@@ -2,14 +2,6 @@
 
 <div class="row">
   <div class="col-sm-6 col-md-offset-3">
-    <%= form_for(@item) do |f| %>
-      <%= f.label :title %>
-      <%= f.text_field :title, class: 'form-control' %>
-
-      <%= f.label :description %>
-      <%= f.text_area :description, class: 'form-control' %>
-      <hr/>
-      <%= f.submit "Add To-Do", class: "btn btn-primary" %>
-    <% end %>
+    <%= render 'form' %>
   </div>
 </div>
