@@ -3,7 +3,10 @@
   <%= f.text_field :title, class: 'form-control' %>
 
   <%= f.label :description %>
-  <%= f.text_area :description, class: 'form-control' %>
+  <%= f.text_area :description, class: 'form-control' %><br>
+
+  <%= f.label :category_id %>
+  <%= f.select :category_id, options_for_select(@categories), class: 'form-control' %>
   <hr/>
   <%= render 'error_messages' %>
   <%= f.submit "Submit", class: "btn btn-primary" %>

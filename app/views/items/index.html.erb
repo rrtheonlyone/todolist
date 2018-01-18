@@ -4,35 +4,66 @@
 </div>
 
 <hr/>
-<% @items.each do |item| %>
-	<div class="row item">
-		<div class="col-sm-6 col-sm-offset-3">
-			<div class="panel panel-default">
-			  <div class="panel-body">
 
-			  	<div class="col-sm-8">
-				  	<% if item.completed? %>
-					   	 <strike><h4><%= item.title %></h4></strike>
-					   	 <p>Completed <%= time_ago_in_words(item.completed_at) %> ago</p>
-					<% else %>
-						 <h4><%= item.title %></h4>
-					   	 <p>Created <%= time_ago_in_words(item.created_at) %> ago</p>
-					<% end %>
+
+<div class="row">
+
+
+<div class="col-sm-8">
+	<% @items.each do |item| %>
+		<div class="row item">
+			<div class="col-sm-8 col-sm-offset-1">
+				<div class="panel panel-default">
+				  <div class="panel-body">
+
+				  	<div class="col-sm-8">
+					  	<% if item.completed? %>
+						   	 <strike><h4><%= item.title %></h4></strike>
+						   	 <h5><u>Category: <%= Category.find(item.category_id).name %></u></h5>
+						   	 <p>Completed <%= time_ago_in_words(item.completed_at) %> ago</p>
+						<% else %>
+							 <h4><%= item.title %></h4>
+							 <h5><u>Category: <%= Category.find(item.category_id).name %></u></h5>
+						   	 <p>Created <%= time_ago_in_words(item.created_at) %> ago</p>
+						<% end %>
+					</div>
+
+					<div class="col-sm-3 col-sm-offset-1">
+				        <%= link_to item, class: "btn btn-primary" do %>
+				        	<i class="glyphicon glyphicon-eye-open"></i>
+				        <% end %>
+
+						<%= link_to item, method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" do %>
+							<i class="glyphicon glyphicon-trash"></i>
+				        <% end %>
+					</div>
+				  </div>
 				</div>
-
-				<div class="col-sm-3 col-sm-offset-1">
-			        <%= link_to item, class: "btn btn-primary" do %>
-			        	<i class="glyphicon glyphicon-eye-open"></i>
-			        <% end %>
-
-					<%= link_to item, method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" do %>
-						<i class="glyphicon glyphicon-trash"></i>
-			        <% end %>
-				</div>
-			  </div>
 			</div>
 		</div>
-	</div>
-<% end %>
+	<% end %>
+</div>
+
+<div class="col-sm-4">
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">Category</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @categories.each do |category| %>
+	    <tr>
+	      <td><%= category.name %></td>
+	    </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+</div>
+
+<hr>
+
+
 
 

@@ -4,10 +4,12 @@ class ItemsController < ApplicationController
 
 	def index
 		@items = Item.all.order("created_at DESC")
+		@categories = Category.all;
 	end
 
 	def new
 		@item = Item.new
+		@categories = Category.all.map{|c| [c.name, c.id]}
 	end
 
 	def show
@@ -24,6 +26,7 @@ class ItemsController < ApplicationController
 	end
 
 	def edit
+		@categories = Category.all.map{|c| [c.name, c.id]}
 	end
 
 	def update
@@ -47,7 +50,7 @@ class ItemsController < ApplicationController
 	private
 
 		def item_params
-			params.require(:item).permit(:title, :description)
+			params.require(:item).permit(:title, :description, :category_id)
 		end
 
 		def find_item
