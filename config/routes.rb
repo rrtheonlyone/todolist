@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   resources :categories
 	resources :items do
 	  	member do
@@ -7,7 +9,7 @@ Rails.application.routes.draw do
 	  	end
 	end
 
-	
-	root 'items#index'
+  get 'tags/:tag', to: 'items#index', as: :tag	
+  root 'items#index'
 
 end

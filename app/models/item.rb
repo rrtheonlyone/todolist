@@ -8,4 +8,8 @@ class Item < ApplicationRecord
 	def completed?
 		!completed_at.blank?
 	end
+
+	def self.tagged_with(name)
+		Category.find_by!(name: name).items
+	end
 end

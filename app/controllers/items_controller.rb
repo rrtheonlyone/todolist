@@ -3,8 +3,13 @@ class ItemsController < ApplicationController
 	before_action :find_item, only: [:show, :edit, :update, :destroy, :complete]
 
 	def index
-		@items = Item.all.order("created_at DESC")
 		@categories = Category.all;
+
+		@items = if params[:tag]
+			Item.tagged_with(params[:tag])
+		else
+			Item.all
+		end
 	end
 
 	def new
