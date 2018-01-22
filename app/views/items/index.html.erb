@@ -7,44 +7,8 @@
 
 <div class="row">
 
-
-<div class="col-sm-8">
-	<% @items.each do |item| %>
-		<div class="row item">
-			<div class="col-sm-8 col-sm-offset-1">
-				<div class="panel panel-default">
-				  <div class="panel-body">
-
-				  	<div class="col-sm-8">
-					  	<% if item.completed? %>
-						   	 <strike><h4><%= item.title %></h4></strike>
-						   	 <h5><u>Category: <%= Category.find(item.category_id).name %></u></h5>
-						   	 <p>Completed <%= time_ago_in_words(item.completed_at) %> ago</p>
-						<% else %>
-							 <h4><%= item.title %></h4>
-							 <h5><u>Category: <%= Category.find(item.category_id).name %></u></h5>
-						   	 <p>Created <%= time_ago_in_words(item.created_at) %> ago</p>
-						<% end %>
-					</div>
-
-					<div class="col-sm-3 col-sm-offset-1">
-				        <%= link_to item, class: "btn btn-primary" do %>
-				        	<i class="glyphicon glyphicon-eye-open"></i>
-				        <% end %>
-
-						<%= link_to item, method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" do %>
-							<i class="glyphicon glyphicon-trash"></i>
-				        <% end %>
-					</div>
-				  </div>
-				</div>
-			</div>
-		</div>
-	<% end %>
-</div>
-
 <div class="col-sm-4">
-	<table class="table">
+	<table class="table-condensed">
 	  <thead>
 	    <tr>
 	      <th scope="col">Category</th>
@@ -62,9 +26,71 @@
 	  </tbody>
 	</table>
 </div>
+
+<div class="col-sm-8">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Task</th>
+				<th>Category</th>
+				<th>Created</th>
+				<th colspan="2"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @items.each do |item| %>
+				<% if !item.completed? %>
+				<tr>
+					<td><%= link_to item.title, item %></td>
+					<td><%= Category.find(item.category_id).name %></td>
+					<td><%= time_ago_in_words(item.created_at) %> ago</td>
+					<td><%= link_to complete_item_path(item), method: :patch do %>
+				        	<i class="glyphicon glyphicon-ok"></i>
+				        <% end %></td>
+					<td><%= link_to item, method: :delete, data: { confirm: "Are you sure?"} do %>
+							<i class="glyphicon glyphicon-trash"></i>
+				        <% end %></td>
+				</tr>
+				<% end %>
+			<% end %>		
+		</tbody>
+	</table>
+</div>
+
+
 </div>
 
 <hr>
+
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-4">
+		<h4>Completed Tasks:</h4>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Task</th>
+					<th>Category</th>
+					<th>Completed</th>
+					<th colspan="2"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @items.each do |item| %>
+					<% if item.completed? %>
+					<tr>
+						<td><%= link_to item.title, item %></td>
+						<td><%= Category.find(item.category_id).name %></td>
+						<td><%= time_ago_in_words(item.completed_at) %> ago</td>
+						<td><%= link_to item, method: :delete, data: { confirm: "Are you sure?"} do %>
+								<i class="glyphicon glyphicon-trash"></i>
+					        <% end %></td>
+					</tr>
+					<% end %>
+				<% end %>		
+			</tbody>
+		</table>
+	</div>
+</div>
 
 
 
